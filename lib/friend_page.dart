@@ -32,7 +32,6 @@ class FriendsPage extends StatelessWidget {
       if (photoIterator > 3) {
         photoIterator = 0;
       }
-      ;
     }
 
     return list;
@@ -40,8 +39,7 @@ class FriendsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
+    return Stack(children: [
       Container(
           margin: EdgeInsets.only(
             top: 60,
@@ -50,6 +48,6 @@ class FriendsPage extends StatelessWidget {
             children: putTilesOnPage(),
           )),
       CurveTopBar()
-    ]));
+    ]);
   }
 }

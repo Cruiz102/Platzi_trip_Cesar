@@ -17,41 +17,71 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: FriendsPage());
+        home: MyHomePage());
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final acon =
       BottomNavigationBarItem(icon: Icon(Icons.free_breakfast), label: "App");
   final icon = BottomNavigationBarItem(
-    icon: IconButton(
-      icon: Icon(Icons.settings),
-      onPressed: () => {},
-    ),
-    label: "settings",
+    icon: Icon(Icons.home),
+    label: "home",
   );
-  final dummy =
-      "La historia de Puerto Rico comenzó con el asentamiento del pueblo indígena ortoiroide en el archipiélago de Puerto Rico entre los años 3000 y 2000 a. C. ... En el momento de la llegada de Cristóbal Colón al Nuevo Mundo en 1492, la cultura indígena dominante era la de los taínos";
+  int index = 1;
+  void currentTap(int a) {
+    setState(() {
+      index = a;
+    });
+  }
+
+  List<Widget> list = [
+    PlatziTrip(),
+    FriendsPage(),
+    Container(
+      color: Colors.amber,
+    )
+  ];
 //////////
   @override
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: [icon, acon, acon],
+        currentIndex: index,
+        onTap: currentTap,
       ),
-      body: Stack(children: [
-        ListView(children: [
-          PlaceName(
-            name: "Puerto Rico",
-            description: dummy,
-            stars: 3,
-          ),
-          ReviewList(),
-        ]),
-        TopBar(),
-      ]),
+      body: list[index],
     );
     return scaffold;
+  }
+}
+
+class PlatziTrip extends StatefulWidget {
+  @override
+  _PlatziTripState createState() => _PlatziTripState();
+}
+
+class _PlatziTripState extends State<PlatziTrip> {
+  final dummy =
+      "La historia de Puerto Rico comenzó con el asentamiento del pueblo indígena ortoiroide en el archipiélago de Puerto Rico entre los años 3000 y 2000 a. C. ... En el momento de la llegada de Cristóbal Colón al Nuevo Mundo en 1492, la cultura indígena dominante era la de los taínos";
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      ListView(children: [
+        PlaceName(
+          name: "Puerto Rico",
+          description: dummy,
+          stars: 3,
+        ),
+        ReviewList(),
+      ]),
+      TopBar(),
+    ]);
   }
 }
